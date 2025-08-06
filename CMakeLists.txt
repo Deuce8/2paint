@@ -7,6 +7,7 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Gui)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 include_directories(src/headers/ src/sources/)
 
@@ -14,7 +15,7 @@ file(GLOB_RECURSE sources src/main.cpp src/sources/*.cpp src/headers/*.h)
 
 add_executable(2paint ${sources})
 
-target_link_libraries(2paint PRIVATE Qt6::Widgets Qt6::Gui)
+target_link_libraries(2paint PRIVATE Qt6::Widgets Qt6::Gui Qt6::Core)
 
 install(TARGETS 2paint
     RUNTIME DESTINATION /usr/local/bin
@@ -24,7 +25,7 @@ install(CODE "file(WRITE \"/usr/local/share/applications/2paint.desktop\" [[
 [Desktop Entry]
 Name=2paint
 Exec=2paint %F
-Icon=accessories-text-editor
+Icon=accessories-image-editor
 MimeType=text/plain;
 Type=Application
 Terminal=False

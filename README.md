@@ -1,6 +1,8 @@
 # 2paint
 Simple paint program written in C++ and Qt6.
 
+Or it will be when I finish it. Currently is does nothing.
+
 # Build Instructions
 
 ```bash
