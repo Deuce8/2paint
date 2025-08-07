@@ -6,13 +6,16 @@
 #include <QWheelEvent>
 #include <QImage>
 
+#include <layer_manager.h>
+
 class Canvas : public QWidget {
     Q_OBJECT
 
 public:
-    Canvas(QWidget *parent = nullptr);
+    Canvas(QWidget *parent = nullptr, Layer_Manager *layerManager = nullptr);
 
 private:
+    Layer_Manager *layerManager;
     QImage image;
 
     float zoom;
@@ -27,9 +30,14 @@ private:
 
 public slots:
     void clampView();
+    void setImage(const QImage &image) { this->image = image; };
 
 signals:
+    void requestImage();
     void viewChanged();
+    void mousePressed(QMouseEvent *event);
+    void mouseReleased(QMouseEvent *event);
+    void mouseMoved(QMouseEvent *event);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

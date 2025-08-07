@@ -4,12 +4,14 @@
 
 #pragma region Constructor
 
-Canvas::Canvas(QWidget *parent) : QWidget(parent) {
+Canvas::Canvas(QWidget *parent, Layer_Manager *layerManager) : QWidget(parent), layerManager(layerManager) {
+    setMouseTracking(true);
+
     connect(this, &Canvas::viewChanged, this, &Canvas::clampView);
 
     image = QImage(300, 300, QImage::Format_RGB32);
     image.fill(QColor("#ffffff"));
-
+    
     zoom = 0.125;
     panning = false;
     offset = QPointF(0, 0);
@@ -56,7 +58,10 @@ float Canvas::scale() const {
 #pragma endregion Private Functions
 #pragma region Protected
 
+// This is called everytime canvas is updated using 'update()'
 void Canvas::paintEvent(QPaintEvent *) {
+    image = layerManager->getCurrentLayer();
+
     if(image.isNull())
         return;
 
@@ -95,7 +100,10 @@ void Canvas::paintEvent(QPaintEvent *) {
     painter.drawLines(lines);
 }
 
+// Called when pressing mouse button
 void Canvas::mousePressEvent(QMouseEvent *event) {
+    emit mousePressed(event);
+
     if (event->button() != Qt::MiddleButton)
         return;
      
@@ -103,14 +111,20 @@ void Canvas::mousePressEvent(QMouseEvent *event) {
     last_point = event->position();
 }
 
+// Called when releasing mouse button
 void Canvas::mouseReleaseEvent(QMouseEvent *event) {
+    emit mouseReleased(event);
+
     if (event->button() != Qt::MiddleButton)
         return;
      
     panning = false;
 }
 
+// Called when moving mouse
 void Canvas::mouseMoveEvent(QMouseEvent *event) {
+    emit mouseMoved(event);
+
     if(!panning)
         return;
 
@@ -121,6 +135,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *event) {
     update();
 }
 
+// Called when using mouse wheel
 void Canvas::wheelEvent(QWheelEvent *event) {
     const float old_zoom = zoom;
 
