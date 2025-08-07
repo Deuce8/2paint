@@ -15,6 +15,9 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr, int argc = 1, char *argv[] = nullptr);
 
+    QColor getPrimaryColor() const { return primaryColor; };
+    QColor getSecondaryColor() const { return secondaryColor; };
+
 public slots:
     void loadImage(const QString &path);
 
@@ -27,6 +30,9 @@ protected:
     void dropEvent(QDropEvent *event) override;
 
 private:
+    QColor primaryColor;
+    QColor secondaryColor;
+
     InfoToolbar *infoToolbar;
     Canvas *canvas;
 };
