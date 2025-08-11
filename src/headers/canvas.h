@@ -12,10 +12,10 @@ class Canvas : public QWidget {
     Q_OBJECT
 
 public:
-    Canvas(QWidget *parent = nullptr, Layer_Manager *layerManager = nullptr);
+    Canvas(QWidget *parent = nullptr, LayerManager *layerManager = nullptr);
 
 private:
-    Layer_Manager *layerManager;
+    LayerManager *layerManager;
     QImage image;
 
     float zoom;

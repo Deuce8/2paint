@@ -20,7 +20,7 @@ void LayerManager::addLayer() {
 }
 
 void LayerManager::removeLayer() {
-
+    
 }
 
 void LayerManager::moveLayerUp() {

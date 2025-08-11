@@ -15,11 +15,17 @@ class HistoryManager : public QObject {
     Q_OBJECT
 
 public:
-    HistoryManager(QObject *parent = nullptr);
+    HistoryManager(QObject *parent = nullptr, MainWindow *mainWindow = nullptr);
 
 private:
     MainWindow *mainWindow;
-    QList<AppState> stateStack;
+    QList<AppState> snapshots;
+
+public slots:
+    void undo();
+    void redo();
+
+    void takeSnapshot();
 };
 
 #endif

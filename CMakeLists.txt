@@ -9,9 +9,9 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Gui)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 
-include_directories(src/headers/ src/sources/)
+include_directories(src/headers/ src/sources/ src/headers/tools/ src/sources/tools/)
 
-file(GLOB_RECURSE sources src/main.cpp src/sources/*.cpp src/headers/*.h)
+file(GLOB_RECURSE sources src/main.cpp src/sources/*.cpp src/headers/*.h src/sources/tools/*.cpp src/headers/tools/*.h)
 
 add_executable(2paint ${sources})
 

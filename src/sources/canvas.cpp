@@ -4,7 +4,7 @@
 
 #pragma region Constructor
 
-Canvas::Canvas(QWidget *parent, Layer_Manager *layerManager) : QWidget(parent), layerManager(layerManager) {
+Canvas::Canvas(QWidget *parent, LayerManager *layerManager) : QWidget(parent), layerManager(layerManager) {
     setMouseTracking(true);
 
     connect(this, &Canvas::viewChanged, this, &Canvas::clampView);
